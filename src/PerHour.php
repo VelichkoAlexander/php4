@@ -6,16 +6,17 @@
  * Time: 17:37
  */
 
-class PerHour extends AbstractTax
+class PerHour extends AbstractAbstractTax
 {
+    use TraitGPS, TraitAdditionalDriver;
     protected $taxName = 'Тариф почасовой';
-    protected $pricePerKilometer = 10;
-    protected $pricePerMinute = 3;
+    protected $pricePerKilometer = 0;
+    protected $pricePerMinute = 3.33;
 
-    public function generatePrice()
-    {
-        $this->price =
-            ($this->distance * $this->pricePerKilometer + $this->time * $this->pricePerMinute) * $this->factor;
+    public function getPrice () {
+        $this->time = 60 + ceil($this->time);
+        $this->generatePrice();
+        $this->addAdditionalDriverTax();
         return $this;
     }
 

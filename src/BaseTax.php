@@ -6,16 +6,15 @@
  * Time: 16:42
  */
 
-class BaseTax extends AbstractTax
+class BaseTax extends AbstractAbstractTax
 {
+    use TraitGPS;
     protected $taxName = 'Тариф базовый';
     protected $pricePerKilometer = 10;
     protected $pricePerMinute = 3;
 
-    public function generatePrice()
-    {
-        $this->price =
-            ($this->distance * $this->pricePerKilometer + $this->time * $this->pricePerMinute) * $this->factor;
+    public function getPrice () {
+        $this->generatePrice();
         return $this;
     }
 
